@@ -1,0 +1,398 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="author" content="Paolo Simone">
+
+        <title>Python is fun...ctional?!</title>
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+
+        <!-- theme -->
+        <link rel="stylesheet" href="css/theme/league.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/monokai.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <style>
+            * {
+                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            }
+
+            /* expand slide content area */
+            .slides .present,
+            .reveal .slides>section,
+            .reveal .slides>section>section {
+                height: 100%;
+                width: 100%;
+                padding-top: 0;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-background-image="images/01-happy-snake.jpg" data-background-size="contain">
+                    <h1 style="position: absolute; bottom: 0%; left: 0%; text-align: left">
+                        <span>Python is fun<span></span><span style="opacity: 60%">ctional?!</span>
+                    </h1>
+
+                    <aside class="notes">
+                        - We will see some concepts of functional programming in python<br><br>
+                        - How many of you have ever used python before?<br><br>
+                        - Before we start...<br><br>
+                    </aside>
+                </section>
+        
+                <section data-background-image="images/03-mr-robot-crop.png" data-background-size="contain">
+                    <h2 style="text-align: left"><span>Outline</span></h2>
+                    <div style="text-align: left">
+                        <ul>
+                            <li>Functional programming</li>
+                            <li>First-class functions</li>
+                            <li>Higher order functions</li>
+                            <li>Nested functions</li>
+                            <li>Real-life examples</li>
+                        </ul>
+                    </div>
+
+                    <aside class="notes">
+                        - It's very simple: you won't need to be an hackerman<br><br>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Definition</span></h4>
+                    <h2 style="text-align: left"><span style="opacity: 60%">WT</span><span>Functional programming</span><span style="opacity: 60%">?!</span></h2>                    
+                    <div style="float: left; width: 50%;">
+                        <blockquote style="width: 90%; text-align: left;">
+                            <span class="fragment fade-in-then-semi-out" data-fragment-index="1">
+                                Functional programming is a paradigm that treats computation as the evaluation of mathematical functions
+                            </span> 
+                            <span class="fragment fade-in-then-semi-out" data-fragment-index="2"> 
+                                and avoids shared and mutable data.
+                            </span>
+                            <br>
+                            <span class="fragment fade-in-then-semi-out" data-fragment-index="3">
+                                Programming is done with expressions or declarations instead of statements.
+                            </span>
+                        </blockquote>
+                    </div>
+                    <div style="float: right; width: 50%;">
+                        <ul style="margin-top: 25px;">
+                            <li class="fragment fade-left" data-fragment-index="1">Well-defined and deterministic behavior</li>
+                            <li class="fragment fade-left" data-fragment-index="2">No side-effects</li>
+                            <li class="fragment fade-left" data-fragment-index="3">Focus on <b>WHAT</b> to do, not <b>HOW</b> to do it</li>
+                        </ul>
+                        <div style="margin-top: 50px; text-align: left;" class="fragment fade-down" data-fragment-index="4">
+                            &#8680; Clear and concise code
+                            <br>
+                            &#8680; Easy to run in parallel
+                        </div>
+                    </div>
+                </section>
+
+                <section data-background-image="images/03-5-bazinga.jpg" data-background-size="contain">
+                    <h2 style="text-align: left"><span>Python is <u>not</u> functional</span></h2>                    
+                    <h2 style="position: absolute; bottom: 0%; left: 0%; right: 0%;">
+                        <span>Bazinga</span>
+                    </h2>
+
+                    <aside class="notes">
+                        - We will still use python because of its simple syntax<br><br>
+                        - Every concept we will see can be applied also in almost any other programming language<br><br>
+                    </aside>
+                </section>
+
+                <section data-background-image="images/04-evolution-transparent.png" data-background-size="90%" data-background-position="bottom">
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>First class functions</span></h4>
+                    <h2 style="text-align: left; margin-bottom: 0%"><span>Lambdas</span></h2>
+                    <p style="text-align: left; margin-top: 0%;">Functions as variables</p>
+
+                    <pre><code class="python" data-trim data-noescape>
+                        square = lambda x: x**2
+                        
+                        print(square) # &lt;function &lt;lambda&gt; at 0x000002131C8E7BF8&gt;
+                        
+                        print(square(2)) # 4
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Lambda functions are anonymous functions, usually given as parameters to higher-order functions. <br><br>
+                        - Lambdas in python can contain a single instruction (unfortunately) <br><br>
+                        - Functions can be assigned to variables as well. <br><br>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Higher order functions</span></h4>
+                    <h2 style="text-align: left"><span>Map</span></h2>
+                    <p style="text-align: left; margin-top: 0%; margin-bottom: 5%;">Apply functions to all elements</p>
+
+                    <div style="float: left; width: 40%;" class="fragment">
+                        <h4><span>Procedural</span></h4>
+                        <pre><code class="python" data-trim data-noescape>
+                            result = []
+                            for x in data:
+                              y = square(x)
+                              result.append(y)
+                        </code></pre>
+                    </div>
+
+                    <div style="float: right; width: 60%;">
+                        <div class="fragment">
+                            <h4><span>Functional</span></h4>
+                            <pre><code class="python" data-trim data-noescape>
+                                result = map(square, data)
+                            </code></pre>
+                        </div>
+
+                        <div class="fragment">
+                            <h4><span>Pythonic</span></h4>
+                            <pre><code class="python" data-trim data-noescape>
+                                result = [square(x) for x in data]
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <aside class="notes">
+                        - AKA apply<br><br>
+                        - Iterations must be independent<br><br>
+                        - Easy to parallelize<br><br>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Higher order functions</span></h4>
+                    <h2 style="text-align: left"><span>Filter</span></h2>
+                    <p style="text-align: left; margin-top: 0%; margin-bottom: 5%;">Keep or discard elements in a collection</p>
+
+                    <div style="float: left; width: 40%;" class="fragment">
+                        <h4><span>Procedural</span></h4>
+                        <pre><code class="python" data-trim data-noescape>
+                            result = []
+                            for x in data:
+                              if is_even(x):
+                                result.append(x))
+                        </code></pre>
+                    </div>
+
+                    <div style="float: right; width: 60%;">
+                        <div class="fragment">
+                            <h4><span>Functional</span></h4>
+                            <pre><code class="python" data-trim data-noescape>
+                                result = filter(is_even, data)
+                            </code></pre>
+                        </div>
+
+                        <div class="fragment">
+                            <h4><span>Pythonic</span></h4>
+                            <pre><code class="python" data-trim data-noescape>
+                                result = [x for x in data if is_even(x)]
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Higher order functions</span></h4>
+                    <h2 style="text-align: left"><span>Reduce</span></h2>
+                    <p style="text-align: left; margin-top: 0%; margin-bottom: 5%;">Aggregate elements in a collection to produce a single result</p>
+
+                    <div style="float: left; width: 40%;" class="fragment">
+                        <h4><span>Procedural</span></h4>
+                        <pre><code class="python" data-trim data-noescape>
+                            result = 0
+                            for x in data:
+                              result += x
+                        </code></pre>
+                    </div>
+
+                    <div style="float: right; width: 60%;" class="fragment">
+                        <h4><span>Functional</span></h4>
+                        <pre><code class="python" data-trim data-noescape>
+                            from functools import reduce
+
+                            result = reduce(add, data, 0)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section data-background-image="images/05-xzibit.jpg" data-background-size="contain">
+                    <h2 style="text-align: left"><span>Yo dawg</span></h2>                    
+                    <h2 style="position: absolute; bottom: 0%; left: 0%; right: 0%;">
+                        <span>I heard you like functions</span>
+                    </h2>
+
+                    <aside class="notes">
+                        - So I put a function inside your function!<br><br>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Nested functions</span></h4>
+                    <h2 style="text-align: left"><span>Return a function</span></h2>
+                    <p style="text-align: left; margin-top: 0%; margin-bottom: 5%;">Functions can be used as return value</p>
+
+                    <pre><code class="python" data-trim data-noescape>
+                        def greeter():
+                          return lambda: "Hello world"
+                        
+                        <span class="fragment">print(greeter)</span> 
+                        <span class="fragment"># &lt;function greeter at 0x0000022A1FC99D08&gt;</span>
+                        
+                        <span class="fragment">print(greeter())</span>
+                        <span class="fragment"># &lt;function greeter.&lt;locals&gt;.&lt;lambda&gt; at 0x0000022A1FC998C8&gt;</span>
+                        
+                        <span class="fragment">print(greeter()())</span>
+                        <span class="fragment"># Hello world</span>
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Any guess?<br><br>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Nested functions</span></h4>
+                    <h2 style="text-align: left"><span>Closure</span></h2>
+                    <p style="text-align: left; margin-top: 0%; margin-bottom: 5%;">Inner functions can use variables from parent function</p>
+
+                    <pre><code class="python" data-trim data-noescape>
+                        def counter():
+                          i = 0
+                          def increment():
+                            nonlocal i
+                            i += 1
+                            return i
+                          return increment
+                        
+                        <span class="fragment">count = counter()</span>
+                        
+                        <span class="fragment">print(count())</span><span class="fragment">  # 1</span>
+                        <span class="fragment">print(count())</span><span class="fragment">  # 2</span>
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Nested functions</span></h4>
+                    <h2 style="text-align: left"><span>Currying</span></h2>
+                    <p style="text-align: left; margin-top: 0%; margin-bottom: 5%;">Inner functions can use parameters from parent function</p>
+
+                    <pre><code class="python" data-trim data-noescape>
+                        def pow(exp):
+                          return lambda x: x**exp
+                        
+                        <span class="fragment">square = pow(2)</span>
+                        
+                        <span class="fragment">print(square(3)) # 9</span>
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Can be used for partial application<br><br>
+                    </aside>
+                </section>
+
+                <section data-background-image="images/06-all-the-things-crop.png" data-background-size="contain">
+                    <h2 style="text-align: left"><span>Now what?</span></h2>                    
+                    <h2 style="position: absolute; bottom: 0%; left: 0%; right: 0%; color: #ffffff">
+                        <span>map(fun, everywhere)!</span>
+                    </h2>
+
+                    <aside class="notes">
+                        - Let's apply what we have learned to all the things!<br><br>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Examples</span></h4>
+                    <h2 style="text-align: left"><span>Text classification: load documents</span></h2>
+
+                    <pre><code class="python" data-trim data-noescape>
+                        def load_documents(data_folder):
+                          <span class="fragment fade-in-then-semi-out">categories = os.listdir(data_folder)</span>
+                          
+                          <span class="fragment fade-in-then-semi-out">def list_document_paths(category):
+                            cat_folder = path.join(data_folder, category)
+                            file_paths = [path.join(cat_folder, f) for f in os.listdir(cat_folder)]
+                            doc_paths = [f for f in file_paths if f.endswith(".txt")]
+                            return doc_paths</span>                    
+                          
+                          <span class="fragment fade-in-then-semi-out">documents = [
+                            InputDocument(document_path, category) 
+                            for category in categories
+                            for document_path in list_document_paths(category))
+                          ]</span>
+                          <span class="fragment">return documents</span>
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h4 style="float: right; text-align: right; margin-bottom: 0%; opacity: 80%;"><span>Examples</span></h4>
+                    <h2 style="text-align: left"><span>Text classification: training</span></h2>
+
+                    <pre><code class="python" data-trim data-noescape>
+                        def training(documents):
+                          <span class="fragment fade-in-then-semi-out">tokenized_docs = [tokenize(doc) for doc in documents]</span>
+                          <span class="fragment fade-in-then-semi-out">preprocessed_docs = [preprocess(doc) for doc in tokenized_docs]</span>
+                          
+                          <span class="fragment fade-in-then-semi-out">vocabulary = build_vocabulary(preprocessed_docs)</span>
+                          <span class="fragment fade-in-then-semi-out">build_bow = lambda doc: assign_weights(vocabulary, doc)</span>
+                          <span class="fragment fade-in-then-semi-out">bow_docs = [build_bow(doc) for doc in preprocessed_docs]</span>
+                          
+                          <span class="fragment fade-in-then-semi-out">model = train_model(bow_docs)</span>
+                          <span class="fragment fade-in-then-semi-out">return model, vocabulary</span>
+                    </code></pre>
+                </section>
+
+                <section data-background-image="images/10-dolphin.jpg" data-background-size="contain">
+                    <h2 style="text-align: left"><span>So long</span></h2>                    
+                    <h2 style="position: absolute; bottom: 0%; left: 0%; right: 0%; color: #ffffff">
+                        <span>And thanks for all the attention</span>
+                    </h2>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+
+                controls: false,
+                controlsTutorial: false,
+                hash: true,
+                fragmentInURL: true,
+
+                width: 1280,
+                height: 720,
+
+                pdfSeparateFragments: false,
+                pdfMaxPagesPerSlide: 1,
+
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true }
+                ]
+            });
+        </script>
+    </body>
+</html>
